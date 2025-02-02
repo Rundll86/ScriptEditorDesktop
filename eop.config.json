@@ -1,0 +1,26 @@
+{
+    "project": {
+        "name": "some-app",
+        "version": "1.0.0",
+        "entry": "index.js",
+        "files": [],
+        "dirs": [],
+        "excludes": []
+    },
+    "build": {
+        "temp": "temp",
+        "clean": false,
+        "nodeModules": [
+            "type-electron",
+            "save-tool"
+        ],
+        "showTime": false,
+        "showConsole": false,
+        "showEntryInfo": true,
+        "icon": "favicon.ico"
+    },
+    "electron": {
+        "home": "D:/Program Files/Electron",
+        "bin": "electron.exe"
+    }
+}
