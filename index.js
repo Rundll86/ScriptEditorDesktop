@@ -29,6 +29,16 @@ function createProject(name, path) {
 function isProjectExist(name) {
     return getProjects().some(project => project.name === name);
 };
+function removeProjectFromList(name) {
+    const projects = getProjects();
+    const index = projects.findIndex(project => project.name === name);
+    projects.splice(index, 1);
+    saveProjects(projects);
+};
+function removeProjectCompletely(name) {
+    fs.rmSync(getProjects().find(project => project.name === name).path);
+    removeProjectFromList(name);
+};
 app.on('ready', () => {
     const window = new BrowserWindow({
         width: 800,
@@ -39,7 +49,11 @@ app.on('ready', () => {
         },
         icon: "favicon.ico"
     });
-    window.loadURL("http://localhost:8080");
+    if (fs.existsSync("website")) {
+        window.loadFile("website/index.html");
+    } else {
+        window.loadURL("http://localhost:8080");
+    };
     Menu.setApplicationMenu(null);
     ipcMain.handle("get-projects", () => {
         return getProjects();
@@ -71,11 +85,16 @@ app.on('ready', () => {
         const index = projects.findIndex(project => project.name === name);
         return fs.readFileSync(projects[index].path).toString();
     });
+    ipcMain.handle("remove-project", (_, name) => {
+        removeProjectFromList(name);
+    });
+    ipcMain.handle("remove-project-completely", (_, name) => {
+        removeProjectCompletely(name);
+    });
     ipcMain.on("refresh", () => {
         window.reload();
     });
     ipcMain.on("toggle-devtool", () => {
         window.webContents.toggleDevTools();
     });
-    window.webContents.openDevTools();
 });

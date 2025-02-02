@@ -21,6 +21,12 @@ contextBridge.exposeInMainWorld("desktopApi", {
     async readProject(name) {
         return JSON.parse(await ipcRenderer.invoke("read-project", name));
     },
+    async removeProject(name) {
+        return await ipcRenderer.invoke("remove-project", name);
+    },
+    async removeProjectCompletely(name) {
+        return await ipcRenderer.invoke("remove-project-completely", name);
+    },
     refresh() {
         ipcRenderer.send("refresh");
     },

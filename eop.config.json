@@ -1,15 +1,20 @@
 {
     "project": {
-        "name": "some-app",
+        "name": "script-editor-desktop",
         "version": "1.0.0",
         "entry": "index.js",
-        "files": [],
-        "dirs": [],
+        "files": [
+            "preload.js",
+            "favicon.ico"
+        ],
+        "dirs": [
+            "website"
+        ],
         "excludes": []
     },
     "build": {
         "temp": "temp",
-        "clean": false,
+        "clean": true,
         "nodeModules": [
             "type-electron",
             "save-tool"
